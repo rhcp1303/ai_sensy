@@ -26,46 +26,46 @@ def ingest_data(urls_str):
             if scraped_content:
                 total_scraped_content.append(scraped_content)
             else:
-                print(f"Scraping failed for {url}")
+                logger.log(f"Scraping failed for {url}")
             time.sleep(1)
         combined_text = "\n\n".join(total_scraped_content)
         vectorstore = embedding_helper.create_embeddings(combined_text)
         ingestion_done = True
-        return "Data ingestion complete."
+        return "Data Ingestion Complete!!!"
 
     except Exception as e:
         logger.exception(f"An error occurred during ingestion: {e}")
-        return f"An error occurred during ingestion: {e}"
+        return f"An Error Occurred During Ingestion!!!"
 
 
 def perform_qna(user_query):
     global vectorstore, ingestion_done
     if not ingestion_done:
-        return "Please ingest data first.", ""
+        return "Please Ingest Data First!!!", ""
     if vectorstore is None:
-        return "No vectorstore available. Ingestion might have failed.", ""
+        return "No Vectorstore Available. Ingestion Might Have Failed!!!", ""
     try:
         answer = querying_helper.answer_question(query=user_query, vectorstore=vectorstore)
         return answer
     except Exception as e:
         logger.exception(f"An error occurred during Q&A: {e}")
-        return f"An error occurred during Q&A: {e}", ""
+        return f"An Error Occurred During Q&A!!!", ""
 
 
 with gr.Blocks() as demo:
-    url_input = gr.Textbox(label="Enter URLs (one or more, separated by commas)",
+    url_input = gr.Textbox(label="Enter URLs   ( One Or More, Separated By Commas )",
                            placeholder="https://www.example.com, https://www.wikipedia.org, https://www.anothersite.com")
     ingest_button = gr.Button("Ingest Data")
     ingest_status = gr.Textbox(label="Ingestion Status", value="")
-    query_input = gr.Textbox(label="Enter your query")
-    answer_output = gr.Textbox(label="Answer")
-    submit_btn = gr.Button("Submit Query")
+    query_input = gr.Textbox(label="Enter Question")
+    answer_output = gr.Textbox(label="Answer", lines=10)
+    submit_btn = gr.Button("Ask Question")
     ingest_button.click(
         fn=ingest_data,
         inputs=[url_input],
         outputs=[ingest_status]
     ).then(
-        lambda: gr.update(placeholder="Enter your query"),
+        lambda: gr.update(placeholder="Enter your question here"),
         None,
         query_input
     )
