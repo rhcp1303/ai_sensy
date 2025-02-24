@@ -1,7 +1,7 @@
 import time
 from django.core.management.base import BaseCommand
 import logging
-from ...helpers import scrap_from_url_helper as helper
+from ...helpers import scrape_content_from_url_helper as helper
 
 logger = logging.getLogger(__name__)
 
