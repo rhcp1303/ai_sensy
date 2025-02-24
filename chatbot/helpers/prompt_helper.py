@@ -6,7 +6,8 @@ Use the following pieces of context to answer the question at the end. If the an
 Question: {question}
 
 **Instructions:**
-1. Give a detailed explanation using the above context
-2. Minimum 100 words of answer and maximum 500 words of answer
+1. Give a concise answer and accurate, precise explanation.
+2. Give all the characteristic feature necessary to answer the given question.
+3. Answer in a minimum of 100 words and a maximum 0f 200 words.
 
 """

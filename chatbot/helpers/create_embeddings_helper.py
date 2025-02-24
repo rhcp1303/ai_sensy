@@ -3,7 +3,7 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 
 
-def create_embeddings(text, chunk_size=500, chunk_overlap=50):
+def create_embeddings(text, chunk_size=1000, chunk_overlap=200):
     text_splitter = CharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap, separator=".")
     text_chunks = text_splitter.split_text(text)
     print(f"number of text chunks created: {len(text_chunks)}")
