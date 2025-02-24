@@ -16,6 +16,7 @@ class Command(BaseCommand):
         """
         Adds command-line arguments.
         """
+
         parser.add_argument('--text_file_path', type=str,
                             help='path to the text file containing scraped content from url', required=True)
 
@@ -23,6 +24,7 @@ class Command(BaseCommand):
         """
         Handles the command execution.
         """
+
         text_file_path = options['text_file_path']
         with open(text_file_path, "r") as file:
             text = file.read()

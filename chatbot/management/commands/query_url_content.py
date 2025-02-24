@@ -42,6 +42,7 @@ class Command(BaseCommand):
                     *args: Additional positional arguments (not used).
                     **options: Keyword arguments containing the command-line options.
         """
+
         user_query = options['user_query']
         embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/multi-qa-MiniLM-L6-cos-v1")
         vectorstore = FAISS.load_local(

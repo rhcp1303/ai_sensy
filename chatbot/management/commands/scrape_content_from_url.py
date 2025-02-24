@@ -14,16 +14,20 @@ class Command(BaseCommand):
     """
 
     def add_arguments(self, parser):
+
         """
                 Adds command-line arguments.
         """
+
         parser.add_argument('--list_of_urls', nargs='+', type=str,
                             help='List of URLs of the web pages to be queried through RAG', required=True)
 
     def handle(self, *args, **options):
+
         """
                 Handles the command execution.
         """
+
         urls = options['list_of_urls']
         total_scraped_content = []
         for url in urls:

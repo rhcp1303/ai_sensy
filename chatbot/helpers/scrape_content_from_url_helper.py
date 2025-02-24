@@ -38,6 +38,7 @@ def scrape_all_visible_text(url):
                 print("Failed to scrape text from the URL.")
             ```
         """
+
     try:
         rp = urllib.robotparser.RobotFileParser()
         parsed_url = urlparse(url)

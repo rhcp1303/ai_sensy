@@ -49,6 +49,7 @@ def answer_question(query, vectorstore):
             print(f"Answer: {answer}")
             ```
         """
+
     try:
         llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
         retriever = vectorstore.as_retriever(k=10)

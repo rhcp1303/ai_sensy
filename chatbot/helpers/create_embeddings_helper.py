@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 
 
 def create_embeddings(text, chunk_size=1000, chunk_overlap=200):
+
     """Creates and saves a FAISS vectorstore from input text.
 
         This function takes a string of text, splits it into chunks, generates
@@ -37,6 +38,7 @@ def create_embeddings(text, chunk_size=1000, chunk_overlap=200):
             >>> embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/multi-qa-MiniLM-L6-cos-v1")
             >>> loaded_vectorstore = FAISS.load_local("temp/vectorstore_faiss", embeddings)
         """
+
     text_splitter = CharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap, separator=".")
     text_chunks = text_splitter.split_text(text)
     logger.info(f"number of text chunks created: {len(text_chunks)}")
