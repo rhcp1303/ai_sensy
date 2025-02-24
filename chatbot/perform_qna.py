@@ -7,7 +7,6 @@ import time
 
 logger = logging.getLogger(__name__)
 
-# Global variables to store the vectorstore and ingestion status
 vectorstore = None
 ingestion_done = False
 
@@ -25,8 +24,11 @@ def ingest_data(urls_str):
             scraped_content = scraping_helper.scrape_all_visible_text(url)
             if scraped_content:
                 total_scraped_content.append(scraped_content)
+                logger.info(f"Scraping successful for {url}")
+
+
             else:
-                logger.log(f"Scraping failed for {url}")
+                logger.info(f"Scraping failed for {url}")
             time.sleep(1)
         combined_text = "\n\n".join(total_scraped_content)
         vectorstore = embedding_helper.create_embeddings(combined_text)
