@@ -22,7 +22,9 @@ This web application allows you to ask questions about content scraped from URLs
          pip install langchain==0.0.245
          pip install langchain_huggingface==0.0.3
          pip install langchain_community==0.0.2
-5. Create the temp directory for storing the temporary files in the root project
+5. Create the temp directory for storing the temporary files in the root project directory:
+
+         mkdir temp
 
 
 6. Run the following command from the root directory of the django project:
