@@ -9,9 +9,7 @@ class Command(BaseCommand):
     help = 'This is a utility management command for testing purpose'
 
     def handle(self, *args, **options):
-
         url = "https://en.m.wikipedia.org/wiki/%C4%80j%C4%ABvika"
-        # 1. Scraping all the text within all the <p> tags:
         paragraphs = helper.scrape_content(url, "p", attribute="text")
         if paragraphs is not None:
             if paragraphs:
@@ -19,8 +17,6 @@ class Command(BaseCommand):
                     print(p)
             else:
                 print("No paragraphs found.")
-
-        # 2. Scraping all the links (href attributes of <a> tags):
         links = helper.scrape_content(url, "a", attribute="href")
         if links is not None:
             if links:
@@ -28,8 +24,6 @@ class Command(BaseCommand):
                     print(link)
             else:
                 print("No links found.")
-
-        # 3. Scraping the HTML content of a specific div:
         div_content = helper.scrape_content(url, "#some-specific-div")
         if div_content is not None:
             if div_content:
@@ -37,8 +31,6 @@ class Command(BaseCommand):
                     print(div)
             else:
                 print("No divs found.")
-
-        # 4. Scraping the text within a specific class:
         class_content = helper.scrape_content(url, ".some-class", attribute="text")
         if class_content is not None:
             if class_content:
