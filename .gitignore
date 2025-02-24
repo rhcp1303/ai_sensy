@@ -8,3 +8,4 @@ media/
 .idea/
 *.log
 .aisensyenv/
+/temp.txt

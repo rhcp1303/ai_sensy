@@ -15,11 +15,14 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         urls = options['list_of_urls']
+        total_scraped_content = []
         for url in urls:
-            scraped_data = helper.scrape_all_visible_text(url)
-            if scraped_data:
-                with open("temp.txt", "w") as file:
-                    file.write(helper.wrap_text(scraped_data))
+            scraped_content = helper.scrape_all_visible_text(url)
+            if scraped_content:
+                total_scraped_content.append(scraped_content)
             else:
                 print(f"Scraping failed for {url}")
             time.sleep(1)
+        combined_text = "\n\n".join(total_scraped_content)
+        with open("temp.txt", "w") as file:
+            file.write(helper.wrap_text(combined_text))

@@ -3,7 +3,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 
 
-def create_embeddings(text, chunk_size, chunk_overlap):
+def create_embeddings(text, chunk_size=500, chunk_overlap=50):
     text_splitter = CharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap, separator=".")
     pdf_chunks = text_splitter.split_text(text)
     print(f"number of pdf chunks created: {len(pdf_chunks)}")
