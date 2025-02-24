@@ -24,5 +24,5 @@ class Command(BaseCommand):
                 print(f"Scraping failed for {url}")
             time.sleep(1)
         combined_text = "\n\n".join(total_scraped_content)
-        with open("temp.txt", "w") as file:
+        with open("temp/scraped_content.txt", "w") as file:
             file.write(helper.wrap_text(combined_text))
