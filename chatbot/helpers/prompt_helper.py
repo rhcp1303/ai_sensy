@@ -8,6 +8,6 @@ Question: {question}
 **Instructions:**
 1. Give a concise answer and accurate, precise explanation.
 2. Give all the characteristic feature necessary to answer the given question.
-3. Answer in a minimum of 100 words and a maximum 0f 200 words.
+3. Answer in a minimum of 300 words and a maximum 0f 600 words.
 
 """

@@ -53,6 +53,7 @@ def ingest_data(urls_str):
                 logger.info(f"Scraping failed for {url}")
             time.sleep(1)
         combined_text = "\n\n".join(total_scraped_content)
+        print("-------"+combined_text)
         vectorstore = embedding_helper.create_embeddings(combined_text)
         ingestion_done = True
         return "Data Ingestion Complete!!!"

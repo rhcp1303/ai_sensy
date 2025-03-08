@@ -51,18 +51,31 @@ def answer_question(query, vectorstore):
         """
 
     try:
+        # 1. Retrieve all documents (modify based on your vector store)
+        # This example is highly dependant on the vectorstore you are using.
         llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
-        retriever = vectorstore.as_retriever(k=10)
-        qa_chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever,
-                                               return_source_documents=True)
-        prompt = PromptTemplate(
-            template=prompt_template, input_variables=["context", "question"]
-        )
-        qa_chain.combine_documents_chain.llm_chain.prompt = prompt
-        result = qa_chain({"query": query})
-        answer = result['result']
-        return answer
+
+        documents = list(vectorstore.docstore._dict.values())  # Example, will not work for all vectorstores.
+
+        # 2. Concatenate document content
+        document_texts = [doc.page_content for doc in documents]
+        combined_text = "\n\n".join(document_texts)
+
+        # 3. Pass the concatenated string to the LLM
+        prompt_template_str = """
+                Context:
+                {context}
+
+                Question: {question}
+
+                Answer:
+                """
+        prompt = PromptTemplate(template=prompt_template_str, input_variables=["context", "question"])
+        formatted_prompt = prompt.format(context=combined_text, question=query)
+
+        response = llm.invoke(formatted_prompt)
+        return response.content
 
     except Exception as e:
-        logger.info(f"An error occurred during question answering: {e}")
-        return "An error occurred.", []
+        logger.error(f"Error processing all documents: {e}")
+        return f"An error occurred: {e}"
