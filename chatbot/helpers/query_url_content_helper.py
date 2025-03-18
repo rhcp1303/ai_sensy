@@ -2,7 +2,6 @@ from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
 import os
-from ..helpers.prompt_helper import prompt_template
 import logging
 
 logger = logging.getLogger(__name__)
@@ -51,17 +50,10 @@ def answer_question(query, vectorstore):
         """
 
     try:
-        # 1. Retrieve all documents (modify based on your vector store)
-        # This example is highly dependant on the vectorstore you are using.
         llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
-
-        documents = list(vectorstore.docstore._dict.values())  # Example, will not work for all vectorstores.
-
-        # 2. Concatenate document content
+        documents = list(vectorstore.docstore._dict.values())
         document_texts = [doc.page_content for doc in documents]
         combined_text = "\n\n".join(document_texts)
-
-        # 3. Pass the concatenated string to the LLM
         prompt_template_str = """
                 Context:
                 {context}
@@ -72,10 +64,8 @@ def answer_question(query, vectorstore):
                 """
         prompt = PromptTemplate(template=prompt_template_str, input_variables=["context", "question"])
         formatted_prompt = prompt.format(context=combined_text, question=query)
-
         response = llm.invoke(formatted_prompt)
         return response.content
-
     except Exception as e:
         logger.error(f"Error processing all documents: {e}")
         return f"An error occurred: {e}"
